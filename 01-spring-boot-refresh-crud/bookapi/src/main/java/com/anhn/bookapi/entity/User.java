@@ -1,6 +1,7 @@
 package com.anhn.bookapi.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "users")
 public class User {
