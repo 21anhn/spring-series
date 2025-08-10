@@ -1,6 +1,9 @@
 package com.anhn.bookapi.security;
 
+import com.anhn.bookapi.aop.LoggingAspect;
 import io.jsonwebtoken.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +18,7 @@ public class JwtProvider {
     @Value("${jwt.secretKey}")
     private String secretKey;
     private static final long EXPIRATION_TIME = 60 * 60 * 1000;
+    private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
     private SecretKeySpec getSecretKeySpec() {
         return new SecretKeySpec(secretKey.getBytes(), SignatureAlgorithm.HS256.getJcaName());
@@ -49,16 +53,15 @@ public class JwtProvider {
                     .parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException ex) {
-            System.out.println("JWT expired: " + ex.getMessage());
+            logger.error("JWT expired: {}", ex.getMessage());
         } catch (UnsupportedJwtException ex) {
-            System.out.println("Unsupported JWT: " + ex.getMessage());
+            logger.error("Unsupported JWT: {}", ex.getMessage());
         } catch (MalformedJwtException ex) {
-            System.out.println("Malformed JWT: " + ex.getMessage());
-        } catch (SignatureException ex) {
-            System.out.println("Invalid signature: " + ex.getMessage());
+            logger.error("Malformed JWT: {}", ex.getMessage());
         } catch (IllegalArgumentException ex) {
-            System.out.println("Illegal argument token: " + ex.getMessage());
+            logger.error("Illegal argument token: {}", ex.getMessage());
         }
+
         return false;
     }
 }
