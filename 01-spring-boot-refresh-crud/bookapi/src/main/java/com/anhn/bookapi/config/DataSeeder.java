@@ -20,7 +20,7 @@ public class DataSeeder implements CommandLineRunner {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public  DataSeeder(
+    public DataSeeder(
             UserRepository userRepository,
             RoleRepository roleRepository,
             PasswordEncoder passwordEncoder
@@ -33,8 +33,8 @@ public class DataSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (roleRepository.count() == 0) {
-            Role adminRole = roleRepository.save(new Role(null, "ROLE_ADMIN", null));
-            roleRepository.save(new Role(null, "ROLE_USER", null));
+            Role adminRole = roleRepository.save(new Role(null, com.anhn.bookapi.constant.Role.ROLE_ADMIN.toString(), null));
+            roleRepository.save(new Role(null, com.anhn.bookapi.constant.Role.ROLE_USER.toString(), null));
 
             User admin = User.builder()
                     .username("admin")

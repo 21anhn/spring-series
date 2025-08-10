@@ -2,7 +2,9 @@ package com.anhn.bookapi.controller;
 
 import com.anhn.bookapi.dto.ApiResponse;
 import com.anhn.bookapi.dto.request.LoginRequest;
+import com.anhn.bookapi.dto.request.RegisterRequest;
 import com.anhn.bookapi.dto.response.LoginResponse;
+import com.anhn.bookapi.dto.response.RegisterResponse;
 import com.anhn.bookapi.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,5 +35,23 @@ public class AuthController {
         }
 
         return responseEntity;
+    }
+
+    @PostMapping("register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        RegisterResponse registerResponse = authenticationService.register(request);
+        if (registerResponse == null) {
+            return ResponseEntity.badRequest().body(new ApiResponse<RegisterResponse>(
+                    false,
+                    HttpStatus.BAD_REQUEST.toString(),
+                    null
+            ));
+        }
+
+        return ResponseEntity.ok().body(new ApiResponse<RegisterResponse>(
+                true,
+                HttpStatus.OK.toString(),
+                registerResponse
+        ));
     }
 }
