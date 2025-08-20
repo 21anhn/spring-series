@@ -9,9 +9,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/auth_db
     username: postgres_admin
     password: 12345
-    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+      ddl-auto: 'update'
+    show-sql: true
+
+jwt:
+  secret-key: 'f0d3a3c4b1d75e6b8d6b249f6a72b20f66e559e35004f2445cf90cbe2952b8b2'
