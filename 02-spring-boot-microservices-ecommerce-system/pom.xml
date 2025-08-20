@@ -21,12 +21,7 @@
 	</properties>
 
 	<modules>
-		<module>ecommerce-system-api</module>
-		<module>ecommerce-system-auth</module>
-		<module>ecommerce-system-catalog</module>
-		<module>ecommerce-system-order</module>
-		<module>ecommerce-system-payment</module>
-		<module>ecommerce-system-shipping</module>
+		<module>auth-service</module>
 	</modules>
 
 	<dependencyManagement>
