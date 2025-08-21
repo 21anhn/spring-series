@@ -7,6 +7,7 @@ import com.anhltn.auth_service.entity.User;
 import com.anhltn.auth_service.repository.UserRepository;
 import com.anhltn.auth_service.security.JwtTokenProvider;
 import com.anhltn.auth_service.service.AuthService;
+import com.anhltn.common.exception.UnauthorizedException;
 import com.anhltn.common.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,8 +31,11 @@ public class AuthServiceImpl implements AuthService {
     public ApiResponse<LoginResponse> login(LoginRequest request) {
         ApiResponse<LoginResponse> response = new ApiResponse<>();
         Optional<User> optionalUser = userRepository.findByEmail(request.getEmail());
-        if (optionalUser.isEmpty()) return response;
-        if (!passwordEncoder.matches(request.getPassword(), optionalUser.get().getPassword())) return response;
+
+        if (optionalUser.isEmpty() ||
+                !passwordEncoder.matches(request.getPassword(), optionalUser.get().getPassword())) {
+            throw new UnauthorizedException("Invalid credentials for email: " + request.getEmail());
+        }
 
         String accessToken = jwtTokenProvider.generateToken(
                 request.getEmail(),
