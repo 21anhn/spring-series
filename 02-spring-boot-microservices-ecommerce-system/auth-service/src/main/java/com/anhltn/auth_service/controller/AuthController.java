@@ -2,6 +2,7 @@ package com.anhltn.auth_service.controller;
 
 import com.anhltn.auth_service.dto.auth.LoginRequest;
 import com.anhltn.auth_service.dto.auth.LoginResponse;
+import com.anhltn.auth_service.dto.auth.RegisterRequest;
 import com.anhltn.auth_service.service.AuthService;
 import com.anhltn.common.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,12 @@ public class AuthController {
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         ApiResponse<LoginResponse> response = authService.login(request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
+    @PostMapping("register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        ApiResponse<Long> response = authService.register(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -8,7 +8,7 @@ import com.anhltn.common.response.ApiResponse;
 public interface AuthService {
     ApiResponse<LoginResponse> login(LoginRequest request);
 
-    void register(RegisterRequest request);
+    ApiResponse<Long> register(RegisterRequest request);
 
     void forgetPassword(String email);
 
