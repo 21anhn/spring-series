@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ApiResponse<T> {
     private int statusCode = 200;
-    private boolean success = false;
+    private boolean success = true;
     private String message = "The operation has been successful.";
     private T data;
 }
