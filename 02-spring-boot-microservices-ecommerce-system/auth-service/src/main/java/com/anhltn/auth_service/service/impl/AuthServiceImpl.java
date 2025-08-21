@@ -70,7 +70,7 @@ public class AuthServiceImpl implements AuthService {
         User user = new User();
         user.setEmail(request.getEmail());
         user.setFullName(request.getFullName());
-        user.setPassword(request.getPhoneNumber());
+        user.setPhoneNumber(request.getPhoneNumber());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         Optional<Role> optionalRole = roleRepository.findByName(com.anhltn.common.constant.Role.ROLE_USER.toString());
