@@ -1,0 +1,22 @@
+networks:
+  microservices-net:
+    driver: bridge
+
+services:
+  auth-db:
+    image: postgres:15
+    container_name: auth-db
+    environment:
+      POSTGRES_USER: postgres_admin
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: auth_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - auth_data:/var/lib/postgresql/data
+    networks:
+      - microservices-net
+
+volumes:
+  auth_data:
+
