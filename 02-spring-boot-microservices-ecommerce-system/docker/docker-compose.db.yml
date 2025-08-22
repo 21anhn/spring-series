@@ -1,7 +1,3 @@
-networks:
-  microservices-net:
-    driver: bridge
-
 services:
   auth-db:
     image: postgres:15
@@ -20,3 +16,6 @@ services:
 volumes:
   auth_data:
 
+networks:
+  microservices-net:
+    external: true
