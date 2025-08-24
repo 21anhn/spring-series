@@ -6,7 +6,7 @@ spring:
     name: auth-service
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/auth_db
+    url: jdbc:postgresql://localhost:5433/auth_db
     username: postgres_admin
     password: 12345
 
@@ -14,6 +14,24 @@ spring:
     hibernate:
       ddl-auto: 'update'
     show-sql: true
+
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+
+    consumer:
+      group-id: auth-service-consumer-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 jwt:
   secret-key: 'f0d3a3c4b1d75e6b8d6b249f6a72b20f66e559e35004f2445cf90cbe2952b8b2'

@@ -5,6 +5,8 @@ import com.anhltn.auth_service.dto.auth.LoginResponse;
 import com.anhltn.auth_service.dto.auth.RegisterRequest;
 import com.anhltn.auth_service.entity.Role;
 import com.anhltn.auth_service.entity.User;
+import com.anhltn.auth_service.event.UserRegisteredEvent;
+import com.anhltn.auth_service.producer.UserRegisteredProducer;
 import com.anhltn.auth_service.repository.RoleRepository;
 import com.anhltn.auth_service.repository.UserRepository;
 import com.anhltn.auth_service.security.JwtTokenProvider;
@@ -32,6 +34,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private UserRegisteredProducer userRegisteredProducer;
 
     @Override
     public ApiResponse<LoginResponse> login(LoginRequest request) {
@@ -77,6 +82,17 @@ public class AuthServiceImpl implements AuthService {
         optionalRole.ifPresent(user::setRole);
 
         userRepository.save(user);
+
+        UserRegisteredEvent event = new UserRegisteredEvent(
+                user.getId(),
+                user.getFullName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getPhoneNumber(),
+                user.getRole().getName()
+        );
+
+        userRegisteredProducer.sendUserRegisteredEvent(event);
 
         response.setData(user.getId());
         return response;
