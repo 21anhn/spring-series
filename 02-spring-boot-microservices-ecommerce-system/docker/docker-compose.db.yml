@@ -13,8 +13,23 @@ services:
     networks:
       - microservices-net
 
+  user-db:
+    image: postgres:15
+    container_name: user-db
+    environment:
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: user_db
+    ports:
+      - "5434:5432"
+    volumes:
+      - user_data:/var/lib/postgresql/data
+    networks:
+      - microservices-net
+
 volumes:
   auth_data:
+  user_data:
 
 networks:
   microservices-net:
