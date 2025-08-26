@@ -11,8 +11,8 @@ public class KafkaConfig {
     @Bean
     public NewTopic registerUserTopic() {
         return TopicBuilder
-                .name("register-user")
-                .partitions(2)
+                .name("auth-service.user.created")
+                .partitions(1)
                 .replicas(1)
                 .build();
     }

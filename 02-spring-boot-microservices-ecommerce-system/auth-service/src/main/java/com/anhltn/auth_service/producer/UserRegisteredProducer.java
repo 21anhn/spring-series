@@ -1,6 +1,6 @@
 package com.anhltn.auth_service.producer;
 
-import com.anhltn.auth_service.event.UserRegisteredEvent;
+import com.anhltn.common.event.UserRegisteredEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -15,7 +15,7 @@ public class UserRegisteredProducer {
     private KafkaTemplate<String, UserRegisteredEvent> kafkaTemplate;
 
     public void sendUserRegisteredEvent(UserRegisteredEvent event) {
-        String topic = "register-user";
+        String topic = "auth-service.user.created";
 
         Message<UserRegisteredEvent> message = MessageBuilder
                 .withPayload(event)

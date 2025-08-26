@@ -1,4 +1,4 @@
-package com.anhltn.auth_service.event;
+package com.anhltn.common.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

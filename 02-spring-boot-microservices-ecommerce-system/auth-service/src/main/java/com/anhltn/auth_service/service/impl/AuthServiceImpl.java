@@ -5,7 +5,7 @@ import com.anhltn.auth_service.dto.auth.LoginResponse;
 import com.anhltn.auth_service.dto.auth.RegisterRequest;
 import com.anhltn.auth_service.entity.Role;
 import com.anhltn.auth_service.entity.User;
-import com.anhltn.auth_service.event.UserRegisteredEvent;
+import com.anhltn.common.event.UserRegisteredEvent;
 import com.anhltn.auth_service.producer.UserRegisteredProducer;
 import com.anhltn.auth_service.repository.RoleRepository;
 import com.anhltn.auth_service.repository.UserRepository;
